@@ -1,14 +1,72 @@
 body, html {
     margin: 0;
     padding: 0;
-}
-
-body {
     height: 100vh;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     color: #F3f3f3;
 }
 
+.background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #111115;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    align-items: baseline;  
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.kofi-image {
+    width: 4rem;
+    height: auto;
+}
+
+.github-image {
+    width: 3rem;
+    height: auto;
+}
+.photo-image {
+    width: 3rem;
+    height: auto;
+}
+
+
+.main-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-text h1, .main-text h2 {
+    margin: 0; 
+    letter-spacing: .05em;
+}
+
+.main-text h1 {
+    font-size: 5rem;
+}
+
+.main-text h2 {
+    font-size: 2rem;
+    margin-top: 1rem; 
+}
+
+#middle-image {
+    width: 20rem;
+    height: auto;
+    margin-top: 1.5rem;
+} 
+
+/* Scrollbar Customization */
 body::-webkit-scrollbar {
     background-color: #111115;
     width: 0.6rem;
@@ -25,148 +83,4 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-button {
     display:none;
-}
-
-.background {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('imgs/grid.png');
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-#logo {
-    margin-top:0.5rem;
-    margin-left:1.5rem;
-    width: 2.6rem;
-    height: auto;
-}
-
-.header-text {
-    margin-top:1rem;
-    margin-left: 1.5rem;
-    font-size: 3rem;
-}
-
-#github-image {
-    margin-top:0.9rem;
-    margin-right:1.5rem;
-    width: 3rem;
-    height: auto;
-}
-
-#kofi-image {
-    margin-top:1rem;
-    margin-right:1.5rem;
-    width: 4.5rem;
-    height: auto;
-}
-
-.main-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-}
-
-.main-text h1, .main-text h2 {
-    margin: 0; 
-}
-
-.main-text h1 {
-    font-size: 9rem;
-    letter-spacing: -0.05em;
-}
-
-.main-text h2 {
-    font-size: 3rem;
-    margin-top: -0.2rem; 
-    letter-spacing: 0em;
-}
-
-#middle-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 20rem;
-    height: auto;
-    margin-top: 1.5rem;
-}
-
-.scroll-content {
-    background-color: #111115;
-    color: white;
-    padding: 1.25rem; 
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.scroll-content h2 {
-    font-size: 3rem;
-}
-.scroll-content h3 {
-    font-size: 1.5rem;
-    margin: 0.5rem; 
-}
-
-.text-underline {
-    text-decoration: underline;
-    text-decoration-color: rgb(50, 50, 156);
-}
-
-.image-container {
-    position: relative;
-    display: inline-block; 
-    margin-left: 44.8rem;
-    margin-top: -5.6rem;
-}
-
-.overlay-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-}
-
-#cam-image {
-    display: block;
-    width: 15rem; 
-    height: auto;
-}
-
-#transparent-image {
-    display: block;
-    width: 10rem; 
-    height: auto;
-    transform: rotate(-18deg);
-    margin-top:-16rem;
-    margin-left: 2rem;
 }
