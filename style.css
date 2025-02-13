@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100vh;
+    overflow: hidden;
     font-family: 'Inter', sans-serif;
     color: #F3f3f3;
 }
@@ -24,10 +25,6 @@ body, html {
     margin-bottom: 1.5rem;
 }
 
-.kofi-image {
-    width: 4rem;
-    height: auto;
-}
 
 .github-image {
     width: 3rem;
@@ -66,21 +63,3 @@ body, html {
     margin-top: 1.5rem;
 } 
 
-/* Scrollbar Customization */
-body::-webkit-scrollbar {
-    background-color: #111115;
-    width: 0.6rem;
-}
-
-body::-webkit-scrollbar-track {
-    background-color: #111115;
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: #F3f3f3;
-    border-radius: 2px;
-}
-
-body::-webkit-scrollbar-button {
-    display:none;
-}
