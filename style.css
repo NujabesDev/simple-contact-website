@@ -3,7 +3,7 @@ body, html {
     padding: 0;
     height: 100vh;
     overflow: hidden;
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica;
     color: #F3f3f3;
 }
 
@@ -30,6 +30,7 @@ body, html {
     width: 3rem;
     height: auto;
 }
+
 .photo-image {
     width: 3rem;
     height: auto;
@@ -58,7 +59,7 @@ body, html {
 }
 
 #middle-image {
-    width: 20rem;
+    width: 15rem;
     height: auto;
     margin-top: 1.5rem;
 } 
