@@ -1,12 +1,19 @@
+@font-face {
+    font-family: 'Brevis-Regular';
+    src: url('../fonts/Brevis-Regular.woff2') format('woff2'),
+         url('../fonts/Brevis-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body, html {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     font-family: 'Brevis-Regular';
     color: #c8c8c8;
 }
-
 .background {
     display: flex;
     flex-direction: column;
@@ -25,12 +32,10 @@ body, html {
     margin-bottom: 1.5rem;
 }
 
-
 .github-image {
     width: 3rem;
     height: auto;
 }
-
 
 .main-text {
     display: flex;
@@ -60,11 +65,12 @@ body, html {
     height: auto;
     margin-top: 1.5rem;
 } 
+@media (max-width: 600px) {
+    .main-text h1 {
+        font-size: 2.5rem;
+    }
 
-@font-face {
-    font-family: 'Brevis-Regular';
-    src: url('../fonts/Brevis-Regular.woff2') format('woff2'),
-         url('../fonts/Brevis-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+    .main-text h2 {
+        font-size: 1.2rem;
+    }
 }
