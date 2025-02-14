@@ -5,11 +5,11 @@ function toggleContent() {
     const headingElement = document.querySelector('.main-text');  
 
     if (state === 0) {
-        imageElement.src = 'imgs/gtea.png';
+        imageElement.src = 'imgs/gtea.webp';
         headingElement.classList.add('main-text-inverse'); 
         state = 1;
     } else {
-        imageElement.src = 'imgs/tea.png';
+        imageElement.src = 'imgs/tea.webp';
         headingElement.classList.remove('main-text-inverse'); 
         state = 0;
     }
