@@ -2,15 +2,15 @@ let state = 0;
 
 function toggleContent() {
     const imageElement = document.getElementById('middle-image');
-    
-    switch (state) {
-        case 0:
-            imageElement.src = 'imgs/tea.png';  
-            state = 1;
-            break;
-        case 1:
-            imageElement.src = 'imgs/gtea.png';  
-            state = 0;
-            break;
+    const headingElement = document.querySelector('.main-text');  
+
+    if (state === 0) {
+        imageElement.src = 'imgs/gtea.png';
+        headingElement.classList.add('main-text-inverse'); 
+        state = 1;
+    } else {
+        imageElement.src = 'imgs/tea.png';
+        headingElement.classList.remove('main-text-inverse'); 
+        state = 0;
     }
 }

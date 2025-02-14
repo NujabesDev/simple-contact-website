@@ -10,10 +10,10 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
     font-family: 'Brevis-Regular';
     color: #c8c8c8;
 }
+
 .background {
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@ body, html {
 
 .social-icons {
     display: flex;
-    align-items: baseline;  
+    align-items: center;  
     gap: 1.5rem;
     margin-bottom: 1.5rem;
 }
@@ -54,10 +54,18 @@ body, html {
     color: #872e1b;
 }
 
+.main-text-inverse h1{
+    color: #63854f;
+}
+
 .main-text h2 {
     font-size: 1.7rem;
     margin-top: 1rem; 
-    color : #a8b4bc;
+    color :#a8b4bc;
+}
+
+.main-text-inverse h2 {
+    color: #9e5538;
 }
 
 #middle-image {
@@ -65,6 +73,7 @@ body, html {
     height: auto;
     margin-top: 1.5rem;
 } 
+
 @media (max-width: 600px) {
     .main-text h1 {
         font-size: 2.5rem;
