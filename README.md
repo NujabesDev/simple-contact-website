@@ -1,6 +1,6 @@
 # Basic Contact Website
 
-## Simple overview of use/purpose
+## Purpose
 
 A simple contact website I created for myself. This serves as a basic template for anyone looking to make their own personal or business contact page. Feel free to modify and use it as a starting point for your own website.
 
