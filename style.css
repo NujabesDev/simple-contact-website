@@ -3,8 +3,8 @@ body, html {
     padding: 0;
     height: 100vh;
     overflow: hidden;
-    font-family: Helvetica;
-    color: #F3f3f3;
+    font-family: 'Brevis-Regular';
+    color: #c8c8c8;
 }
 
 .background {
@@ -12,7 +12,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #111115;
+    background-color: #131313;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -31,11 +31,6 @@ body, html {
     height: auto;
 }
 
-.photo-image {
-    width: 3rem;
-    height: auto;
-}
-
 
 .main-text {
     display: flex;
@@ -50,12 +45,14 @@ body, html {
 }
 
 .main-text h1 {
-    font-size: 5rem;
+    font-size: 4rem;
+    color: #872e1b;
 }
 
 .main-text h2 {
     font-size: 2rem;
     margin-top: 1rem; 
+    color : #b2bdc3;
 }
 
 #middle-image {
@@ -64,3 +61,10 @@ body, html {
     margin-top: 1.5rem;
 } 
 
+@font-face {
+    font-family: 'Brevis-Regular';
+    src: url('../fonts/Brevis-Regular.woff2') format('woff2'),
+         url('../fonts/Brevis-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
