@@ -5,11 +5,11 @@ function toggleContent() {
     
     switch (state) {
         case 0:
-            imageElement.src = 'imgs/gtea.png';  
+            imageElement.src = 'imgs/tea.png';  
             state = 1;
             break;
         case 1:
-            imageElement.src = 'imgs/tea.png';  
+            imageElement.src = 'imgs/gtea.png';  
             state = 0;
             break;
     }
