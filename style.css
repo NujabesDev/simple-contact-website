@@ -9,7 +9,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height:100%;
     font-family: 'Brevis-Regular';
     color: #c8c8c8;
 }
@@ -21,8 +21,9 @@ body, html {
     justify-content: center;
     background-color: #131313;
     width: 100%;
-    height: 100%;
+    height:100%;
     text-align: center;
+    overflow: hidden;
 }
 
 .social-icons {
@@ -70,15 +71,24 @@ body, html {
     color :#a8b4bc;
 }
 
-.main-text-inverse h2 {
-    color: #9e5538;
-}
-
 #middle-image {
     width: 15rem;
     height: auto;
     margin-top: 1.5rem;
 } 
+
+.social-icons a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Makes the link color match the parent text color */
+}
+
+.social-icons a:visited {
+    color: inherit; /* Keeps the visited links the same color */
+}
+
+.social-icons a:hover {
+    color: #872e1b; /* Optional: changes color on hover, you can use any color you want */
+}
 
 @media (max-width: 600px) {
     .main-text h1 {
