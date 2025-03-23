@@ -63,6 +63,21 @@
         .main-text h2 {
             margin-top: -0.5rem;
         }
+        /* Add these styles */
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+            background: #1e1e1e;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -96,22 +111,26 @@
 <script>
     document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
         e.preventDefault();
+        const form = e.target;
         const email = document.getElementById('email').value;
-        
-        // Get API endpoint from Amplify environment variables
         const API_URL = process.env.API_ENDPOINT || 'https://your-api-id.execute-api.region.amazonaws.com/prod/subscribe';
     
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ email })
             });
     
             if (response.ok) {
-                alert('Confirmation email sent! Check your inbox.');
+                // Hide form and show success message
+                form.style.display = 'none';
+                const successMessage = document.createElement('div');
+                successMessage.innerHTML = `
+                    <h3 style="color: #4CAF50;">✓ Confirmation email sent!</h3>
+                    <p>Check your inbox (and spam folder) to complete signup.</p>
+                `;
+                form.parentNode.insertBefore(successMessage, form.nextSibling);
             } else {
                 const error = await response.json();
                 alert(`Error: ${error.message || 'Subscription failed'}`);
@@ -121,8 +140,9 @@
             alert('Connection error. Please try again later.');
         }
         
+        // Clear email field regardless of outcome
         document.getElementById('email').value = '';
     });
-</script>
+    </script>
 </body>
 </html>
