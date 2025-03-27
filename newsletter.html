@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Newsletter - mattheww.org</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="imgs/tea.webp" type="image/png">
+    <style>
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .newsletter-form input[type="email"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #c8c8c8;
+            font-family: 'Brevis-Regular', sans-serif;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 1.5rem;
+            background-color: #872e1b;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Brevis-Regular', sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #a13821;
+        }
+
+        .form-description {
+            margin-bottom: 1.5rem;
+            max-width: 450px;
+            line-height: 1.5;
+        }
+
+        .newsletter-image {
+            margin: 1rem auto;
+            width: 20%;
+            height: auto;
+            display: block;
+        }
+
+        .main-text h1 {
+            margin-top: 1rem;
+        }
+        .main-text h2 {
+            margin-top: -0.5rem;
+        }
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+            background: #1e1e1e;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="background">
+    <div class="main-text">
+        <h1>NASA Newsletter</h1>
+        <h2>Get a beautiful picture handpicked by NASA daily.</h2>
+    </div>
+
+    <img src="imgs/image.png" alt="snippet of newsletter" class="newsletter-image">
+
+    <div class="newsletter-form">
+        <p class="form-description">
+            Sign up to receive daily emails for a stunning picture from NASA's collection. 
+            Pictures are randomly selected from the archive of 
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" rel="noopener noreferrer">Astronomy Picture of the Day</a>.
+        </p>
+
+        <!-- Updated Form with Cloudflare Worker -->
+        <form action="https://fancy-king-cdc7.grwkc25jmj.workers.dev" method="POST">
+            <label for="email">Subscribe to our Newsletter:</label>
+            <input type="email" id="email" name="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <div class="social-icons" style="margin-top: 2rem;">
+        <a href="index.html">
+            <h2>Back to Home</h2>
+        </a>
+    </div>
+</div>
+</body>
+</html>
