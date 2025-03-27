@@ -86,7 +86,7 @@ body, html {
 }
 
 .social-icons a:hover {
-    color: #872e1b; /* Optional: changes color on hover, you can use any color you want */
+    color: #b2aeae; /* Optional: changes color on hover, you can use any color you want */
 }
 
 @media (max-width: 600px) {
