@@ -157,13 +157,11 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
         })
-        
-        console.log('Response status:', response.status)
-        const text = await response.text()
-        console.log('Response text:', text)
+
+        const data = await response.json() // Parse JSON response
         
         messageEl.className = `form-message ${response.ok ? 'success' : 'error'}`
-        messageEl.textContent = text || (response.ok ? 'Subscription successful!' : 'Subscription failed')
+        messageEl.textContent = data.message // Use data.message directly
         messageEl.style.display = 'block'
         
         if (response.ok) {
@@ -181,6 +179,8 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
         submitBtn.textContent = 'Subscribe'
     }
 })
+
+// Updated test function
 function testWorkerConnection() {
     const testEmail = "test@example.com"
     const workerUrl = 'https://fancy-king-cdc7.grwkc25jmj.workers.dev/'
@@ -192,13 +192,11 @@ function testWorkerConnection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: testEmail })
     })
-    .then(response => {
+    .then(async response => {
         console.log('Worker response status:', response.status)
-        return response.text()
-    })
-    .then(text => {
-        console.log('Worker response text:', text)
-        alert(`Worker test complete!\nStatus: ${response.status}\nResponse: ${text}`)
+        const data = await response.json() // Parse JSON here too
+        console.log('Worker response:', data)
+        alert(`Worker test complete!\nStatus: ${response.status}\nResponse: ${data.message}`)
     })
     .catch(error => {
         console.error('Worker test failed:', error)
