@@ -130,7 +130,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
     messageEl.style.display = 'none'
     
     try {
-        const response = await fetch('https://fancy-king-cdc7.grwkc25jmj.workers.dev', {
+        const response = await fetch('https://fancy-king-cdc7.grwkc25jmj.workers.dev/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
