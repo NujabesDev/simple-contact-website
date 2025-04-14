@@ -2,22 +2,42 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import teaImage from '../assets/imgs/tea.webp';
 import gteaImage from '../assets/imgs/gtea.webp';
-import SymmetricPendulum from '../SymmetricPendulum';
+import BouncingShapes from '../BouncingShapes';
 
 function Home() {
   const [imageState, setImageState] = useState(0);
 
-  const toggleContent = () => {
-    setImageState(imageState === 1 ? 0 : 1);
+  // Prevent right-click context menu
+  const handleContextMenu = (e) => {
+    e.preventDefault();
   };
 
   return (
-    <div className="background">
-      <SymmetricPendulum />
-      <div className={`main-text ${imageState === 0 ? 'main-text-inverse' : ''}`}>
+    <div 
+      className="background"
+      onContextMenu={handleContextMenu}
+      style={{
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none'
+      }}
+    >
+      <BouncingShapes />
+      
+      {/* Content Container */}
+      <div 
+        className={`main-text ${imageState === 0 ? 'main-text-inverse' : ''}`}
+        style={{ pointerEvents: 'none' }}
+      >
         <h1>Matthew Witkowski</h1>
       </div>
-      <div className="social-icons">
+
+      {/* Social Icons with selective pointer events */}
+      <div 
+        className="social-icons"
+        style={{ pointerEvents: 'auto' }} // Allow clicking links
+      >
         <a href="https://github.com/NujabesDev" target="_blank" rel="noopener noreferrer">
           <h2>GitHub</h2>
         </a>
@@ -30,12 +50,17 @@ function Home() {
           <h2>Contact Me</h2>
         </Link>
       </div>
-      <div className="main-text">
+
+      {/* Clickable Image */}
+      <div 
+        className="main-text"
+        style={{ pointerEvents: 'auto' }} // Allow image interaction
+      >
         <img 
           src={imageState === 1 ? teaImage : gteaImage} 
           id="middle-image" 
           alt="Tea"
-          onClick={toggleContent}
+          onClick={() => setImageState(prev => prev === 1 ? 0 : 1)}
         />
       </div>
     </div>
