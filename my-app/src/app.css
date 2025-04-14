@@ -240,3 +240,21 @@ body, html {
     -ms-user-select: none;      /* IE10+/Edge */
     pointer-events: none;       /* Optional - prevents any interaction */
   }
+
+  .background {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Add subtle trail effect */
+  canvas {
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  
