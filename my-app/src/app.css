@@ -1,0 +1,218 @@
+@font-face {
+    font-family: 'Brevis-Regular';
+    src: url('./assets/fonts/Brevis-Regular.woff2') format('woff2'),
+         url('./assets/fonts/Brevis-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Brevis-Regular';
+    color: #c8c8c8;
+}
+
+.background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #131313;
+    width: 100%;
+    min-height: 100vh;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;  
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    height: auto;
+    object-fit: contain;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+#linkedin {
+    width: 3.5rem;
+}
+
+#github {
+    width: 3.5rem;
+}
+
+.main-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.main-text h1, .main-text h2 {
+    margin: 0; 
+    letter-spacing: .05em;
+    text-align: center;
+}
+
+.main-text h1 {
+    font-size: 4rem;
+    color: #872e1b;
+    margin-top: 1rem;
+}
+
+.main-text-inverse h1 {
+    color: #63854f;
+}
+
+.main-text h2 {
+    font-size: 1.7rem;
+    margin-top: 1rem; 
+    color: #a8b4bc;
+    margin-top: -0.5rem;
+}
+
+#middle-image {
+    width: 15rem;
+    height: auto;
+    margin-top: 1.5rem;
+    cursor: pointer;
+} 
+
+.social-icons a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.social-icons a:visited {
+    color: inherit;
+}
+
+.social-icons a:hover {
+    color: #b2aeae;
+}
+
+/* Contact page styles */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.contact-email {
+    font-size: 1.8rem;
+    color: #a8b4bc;
+    text-align: center;
+    margin: 2rem 0;
+    letter-spacing: 0.05em;
+}
+
+.contact-email a {
+    color: #872e1b;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-email a:hover {
+    color: #63854f;
+}
+
+.contact-description {
+    max-width: 500px;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* Newsletter page styles */
+.newsletter-image {
+    margin: 1rem auto;
+    width: 20%;
+    height: auto;
+    max-width: 150px;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-description {
+    margin-bottom: 1.5rem;
+    max-width: 450px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+#mc_embed_signup {
+    background: transparent;
+    font-family: 'Brevis-Regular', sans-serif;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#mc_embed_signup .mc-field-group input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #c8c8c8;
+    font-family: 'Brevis-Regular', sans-serif;
+    font-size: 1rem;
+}
+
+#mc_embed_signup .button {
+    padding: 0.8rem 1.5rem;
+    background-color: #872e1b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Brevis-Regular', sans-serif;
+    transition: background-color 0.3s;
+}
+
+#mc_embed_signup .button:hover {
+    background-color: #a13821;
+}
+
+#mc_embed_signup form {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+#mc_embed_signup div.response {
+    color: #c8c8c8;
+    margin: 1rem 0;
+    font-family: 'Brevis-Regular', sans-serif;
+}
+
+@media (max-width: 600px) {
+    .main-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .main-text h2 {
+        font-size: 1.2rem;
+    }
+    
+    .newsletter-image {
+        width: 30%;
+    }
+}
