@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import newsletterImage from '../assets/imgs/image.png';
+import newsletterImage from '../assets/imgs/newsletterImage.svg';
 
 function Newsletter() {
   React.useEffect(() => {
@@ -36,9 +36,7 @@ function Newsletter() {
       <div className="newsletter-form">
         <p className="form-description">
           Sign up to receive daily emails for a stunning picture from NASA's collection. 
-          Pictures are randomly selected from the archive of 
-          <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" rel="noopener noreferrer">
-            Astronomy Picture of the Day
+          Pictures are randomly selected from the archive of <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" rel="noopener noreferrer"> Astronomy Picture of the Day
           </a>.
         </p>
         
@@ -54,7 +52,7 @@ function Newsletter() {
             <div id="mc_embed_signup_scroll">
               <div className="mc-field-group">
                 <label htmlFor="mce-EMAIL">Email Address</label>
-                <input type="email" name="EMAIL" className="required email" id="mce-EMAIL" required value="" />
+                <input type="email" name="EMAIL" className="required email" id="mce-EMAIL" required />
               </div>
               <div id="mce-responses" className="clear foot">
                 <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>

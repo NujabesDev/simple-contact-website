@@ -7,30 +7,37 @@ function Home() {
   const [imageState, setImageState] = useState(0);
 
   const toggleContent = () => {
-    setImageState(imageState === 0 ? 1 : 0);
+    setImageState(imageState === 1 ? 0 : 1);
   };
 
   return (
     <div className="background">
-      <div className={`main-text ${imageState === 1 ? 'main-text-inverse' : ''}`}>
+      <div className={`main-text ${imageState === 0 ? 'main-text-inverse' : ''}`}>
         <h1>Matthew Witkowski</h1>
       </div>
       <div className="social-icons">
         <a href="https://github.com/NujabesDev" target="_blank" rel="noopener noreferrer">
           <h2>GitHub</h2>
         </a>
-        <h2>•</h2>
+        <h2 className="no-copy">•</h2>
+        <Link to="/newsletter">
+          <h2>NASA Newsletter</h2>
+        </Link>
+        <h2 className="no-copy">•</h2>
         <Link to="/contact">
           <h2>Contact Me</h2>
-        </Link>
-        <h2>•</h2>
-        <Link to="/newsletter">
-          <h2>Newsletter</h2>
         </Link>
       </div>
       <div className="main-text">
         <img 
-          src={imageState === 0 ? teaImage : gteaImage} 
+          src={imageState === 1 ? teaImage : gteaImage} 
           id="middle-image" 
           alt="Tea"
           onClick={toggleContent}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default Home;

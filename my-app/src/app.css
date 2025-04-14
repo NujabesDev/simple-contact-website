@@ -36,8 +36,13 @@ body, html {
     object-fit: contain;
     justify-content: center;
     margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+.social-icons h2 {
+    margin: 0;
+}
 #linkedin {
     width: 3.5rem;
 }
@@ -95,7 +100,7 @@ body, html {
 }
 
 .social-icons a:hover {
-    color: #b2aeae;
+    color: #872e1b;
 }
 
 /* Contact page styles */
@@ -137,7 +142,7 @@ body, html {
     margin: 1rem auto;
     width: 20%;
     height: auto;
-    max-width: 150px;
+    max-width: 25rem;
 }
 
 .newsletter-form {
@@ -146,14 +151,15 @@ body, html {
     align-items: center;
     margin-top: 1rem;
     width: 100%;
-    max-width: 500px;
+    max-width: 650px;
 }
 
 .form-description {
     margin-bottom: 1.5rem;
-    max-width: 450px;
+    max-width: 650px;
     line-height: 1.5;
     text-align: center;
+    font-size: 1.4rem;
 }
 
 #mc_embed_signup {
@@ -174,6 +180,16 @@ body, html {
     color: #c8c8c8;
     font-family: 'Brevis-Regular', sans-serif;
     font-size: 1rem;
+}
+
+.form-description a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+.form-description a:hover {
+    color: #0080ff;
+    text-decoration: none;
 }
 
 #mc_embed_signup .button {
@@ -216,3 +232,11 @@ body, html {
         width: 30%;
     }
 }
+
+.no-copy {
+    user-select: none;
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* IE10+/Edge */
+    pointer-events: none;       /* Optional - prevents any interaction */
+  }
