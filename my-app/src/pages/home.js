@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import teaImage from '../assets/imgs/tea.webp';
 import gteaImage from '../assets/imgs/gtea.webp';
-import BouncingShapes from '../BouncingShapes';
+import ParticleBackground from '../ParticleBackground';
 
 function Home() {
   const [imageState, setImageState] = useState(0);
@@ -23,7 +23,7 @@ function Home() {
         msUserSelect: 'none'
       }}
     >
-      <BouncingShapes imageState={imageState} />
+      <ParticleBackground imageState={imageState} />
       
       {/* Content Container */}
       <div 
