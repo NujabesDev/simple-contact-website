@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
 import useMeasure from 'react-use-measure';
 
-const BouncingShapes = () => {
+const BouncingShapes = ({ imageState }) => {
   const [containerRef, bounds] = useMeasure();
   const sceneRef = useRef();
   const engineRef = useRef(null);
@@ -12,7 +12,7 @@ const BouncingShapes = () => {
   // Configuration
   const CONFIG = {
     colors: {
-      primary: '#872e1b',    // Maroon from your theme
+      primary: '#872e1b',    // Maroon/Red from your theme
       secondary: '#63854f',  // Green from your theme
     },
     count: {
@@ -37,7 +37,7 @@ const BouncingShapes = () => {
     if (!bounds.width || !bounds.height) return;
 
     // Create Matter.js instances
-    const { Engine, Render, Runner, Bodies, Composite, Body, World, Mouse, Events, Query } = Matter;
+    const { Engine, Render, Runner, Bodies, Composite, Body, World, Mouse, Query } = Matter;
     
     // Create engine with zero gravity
     const engine = Engine.create({
@@ -117,13 +117,13 @@ const BouncingShapes = () => {
         friction: CONFIG.physics.friction,
         frictionAir: CONFIG.physics.frictionAir,
         render: {    
-
           fillStyle: '#333',
           strokeStyle: '#000',
           lineWidth: 1
         },
         isSpecial: false,
-        shapeType: 'circle'
+        shapeType: 'circle',
+        circleRadius: radius  // Store radius for hit detection
       });
       
       // Apply initial velocity
@@ -196,10 +196,10 @@ const BouncingShapes = () => {
       // Make it special
       shape.isSpecial = true;
       
-      // Choose a special color (primary or secondary only)
-      const specialColors = [CONFIG.colors.primary, CONFIG.colors.secondary];
-      shape.render.fillStyle = specialColors[Math.floor(Math.random() * specialColors.length)];
-      shape.render.strokeStyle = CONFIG.colors.highlight;
+      // Set color based on current image state
+      const specialColor = imageState === 0 ? CONFIG.colors.secondary : CONFIG.colors.primary;
+      shape.render.fillStyle = specialColor;
+      shape.render.strokeStyle = '#000';
       shape.render.lineWidth = 2;
       
       return shape;
@@ -212,21 +212,56 @@ const BouncingShapes = () => {
     // Add all shapes to the world
     World.add(engine.world, allShapes);
     
-    // Setup mouse for interaction
+    // Setup mouse for improved click detection without dragging
     const mouse = Mouse.create(render.canvas);
     
-    // Handle click events
+    // Handle direct click events on the canvas with improved detection
     const handleClick = (event) => {
-      // Get the mouse position
+      // Convert screen coordinates to canvas coordinates
+      const canvasBounds = render.canvas.getBoundingClientRect();
       const mousePosition = {
-        x: event.clientX,
-        y: event.clientY
+        x: (event.clientX - canvasBounds.left) * (render.options.width / canvasBounds.width),
+        y: (event.clientY - canvasBounds.top) * (render.options.height / canvasBounds.height)
       };
       
-      // Check if click hit the special shape
-      const clickedBody = Query.point(allShapes, mousePosition)[0];
+      // Use a slightly larger detection radius for better click experience
+      const clickDetectionRadius = 20; // Extra pixels to make clicking easier
       
-      if (clickedBody && clickedBody.isSpecial) {
+      // Check each shape manually with expanded hit area
+      let clickedSpecial = null;
+      
+      for (const shape of allShapes) {
+        if (shape.isSpecial) {
+          // For circles
+          if (shape.shapeType === 'circle') {
+            const distance = Math.sqrt(
+              Math.pow(mousePosition.x - shape.position.x, 2) + 
+              Math.pow(mousePosition.y - shape.position.y, 2)
+            );
+            // Circle radius + extra detection radius
+            if (distance <= shape.circleRadius + clickDetectionRadius) {
+              clickedSpecial = shape;
+              break;
+            }
+          } 
+          // For polygons (squares and triangles)
+          else {
+            // Check if the point is within the bounds + detection radius
+            const bounds = shape.bounds;
+            if (
+              mousePosition.x >= bounds.min.x - clickDetectionRadius &&
+              mousePosition.x <= bounds.max.x + clickDetectionRadius &&
+              mousePosition.y >= bounds.min.y - clickDetectionRadius &&
+              mousePosition.y <= bounds.max.y + clickDetectionRadius
+            ) {
+              clickedSpecial = shape;
+              break;
+            }
+          }
+        }
+      }
+      
+      if (clickedSpecial) {
         // Apply a strong force in a random direction
         const force = CONFIG.physics.clickForce;
         const angle = Math.random() * Math.PI * 2;
@@ -235,16 +270,16 @@ const BouncingShapes = () => {
           y: Math.sin(angle) * force
         };
         
-        Body.applyForce(clickedBody, clickedBody.position, forceVector);
+        Body.applyForce(clickedSpecial, clickedSpecial.position, forceVector);
         
         // Add a visual effect - briefly change color
-        const originalColor = clickedBody.render.fillStyle;
-        clickedBody.render.fillStyle = CONFIG.colors.highlight;
+        const originalColor = clickedSpecial.render.fillStyle;
+        clickedSpecial.render.fillStyle = '#ffffff';
         
         // Reset color after animation and choose a new special shape
         setTimeout(() => {
-          if (clickedBody) {
-            clickedBody.render.fillStyle = originalColor;
+          if (clickedSpecial) {
+            clickedSpecial.render.fillStyle = originalColor;
             specialShapeRef.current = chooseRandomSpecialShape();
           }
         }, 300);
@@ -253,6 +288,12 @@ const BouncingShapes = () => {
     
     // Add click event listener to the canvas
     render.canvas.addEventListener('click', handleClick);
+
+    // Update special shape color when imageState changes
+    if (specialShapeRef.current) {
+      specialShapeRef.current.render.fillStyle = 
+        imageState === 0 ? CONFIG.colors.secondary : CONFIG.colors.primary;
+    }
     
     // Create and run the runner
     const runner = Runner.create();
@@ -292,7 +333,15 @@ const BouncingShapes = () => {
         sceneRef.current.removeChild(sceneRef.current.firstChild);
       }
     };
-  }, [bounds]);
+  }, [bounds, imageState]);
+  
+  // Additional effect to update special shape color when imageState changes without redoing the whole canvas
+  useEffect(() => {
+    if (specialShapeRef.current) {
+      const specialColor = imageState === 0 ? CONFIG.colors.secondary : CONFIG.colors.primary;
+      specialShapeRef.current.render.fillStyle = specialColor;
+    }
+  }, [imageState, CONFIG.colors.primary, CONFIG.colors.secondary]);
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0 }}>

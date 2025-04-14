@@ -23,7 +23,7 @@ function Home() {
         msUserSelect: 'none'
       }}
     >
-      <BouncingShapes />
+      <BouncingShapes imageState={imageState} />
       
       {/* Content Container */}
       <div 
