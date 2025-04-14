@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Contact from './pages/Contact';
-import Newsletter from './pages/Newsletter';
+import Home from './pages/Home.js';
+import Contact from './pages/Contact.js';
+import Newsletter from './pages/Newsletter.js';
 import './App.css';
 
 function App() {
