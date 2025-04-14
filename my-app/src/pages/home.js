@@ -6,35 +6,34 @@ import ParticleBackground from '../ParticleBackground';
 
 function Home() {
   const [imageState, setImageState] = useState(0);
-
+  
   // Prevent right-click context menu
   const handleContextMenu = (e) => {
     e.preventDefault();
   };
-
+  
+  // For debugging
+  console.log("Current imageState:", imageState);
+  console.log("teaImage path:", teaImage);
+  console.log("gteaImage path:", gteaImage);
+  
   return (
-    <div 
+    <div
       className="background"
       onContextMenu={handleContextMenu}
-      style={{
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none'
-      }}
     >
       <ParticleBackground imageState={imageState} />
-      
+     
       {/* Content Container */}
-      <div 
+      <div
         className={`main-text ${imageState === 0 ? 'main-text-inverse' : ''}`}
         style={{ pointerEvents: 'none' }}
       >
         <h1>Matthew Witkowski</h1>
       </div>
-
+      
       {/* Social Icons with selective pointer events */}
-      <div 
+      <div
         className="social-icons"
         style={{ pointerEvents: 'auto' }} // Allow clicking links
       >
@@ -50,17 +49,18 @@ function Home() {
           <h2>Contact Me</h2>
         </Link>
       </div>
-
+      
       {/* Clickable Image */}
-      <div 
+      <div
         className="main-text"
         style={{ pointerEvents: 'auto' }} // Allow image interaction
       >
-        <img 
-          src={imageState === 1 ? teaImage : gteaImage} 
-          id="middle-image" 
+        <img
+          src={imageState === 0 ? gteaImage : teaImage}
+          id="middle-image"
           alt="Tea"
-          onClick={() => setImageState(prev => prev === 1 ? 0 : 1)}
+          onClick={() => setImageState(prev => prev === 0 ? 1 : 0)}
+          style={{ border: '1px solid transparent' }} // Add border to check if image area is visible
         />
       </div>
     </div>

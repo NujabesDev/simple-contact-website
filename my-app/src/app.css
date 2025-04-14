@@ -137,12 +137,14 @@ body, html {
     line-height: 1.5;
 }
 
-/* Newsletter page styles */
 .newsletter-image {
     margin: 1rem auto;
     width: 20%;
     height: auto;
-    max-width: 25rem;
+    max-width: 30rem;
+    opacity: 1; 
+    position: relative; 
+    z-index: 2; 
 }
 
 .newsletter-form {
@@ -260,7 +262,7 @@ body, html {
     z-index: 2;
     pointer-events: auto;
   }
-  
+
   /* Ensure forms are clickable */
   .newsletter-form, #mc_embed_signup {
     position: relative;
@@ -268,43 +270,4 @@ body, html {
     pointer-events: auto;
   }
   
-  /* Optional: Add a subtle overlay to improve content readability */
-  .background::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(19, 19, 19, 0.7); /* Adjust opacity as needed */
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* Prevent text selection */
-body {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
   
-  /* Allow selection in inputs/textareas if needed */
-  input, textarea {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-  }
-  
-  /* Ensure interactive elements stay clickable */
-  .social-icons a, #middle-image {
-    pointer-events: auto !important;
-  }
-  
-  /* Optional: Add visual feedback for non-interactive elements */
-  body :not(a):not(button):not(input):not(textarea):not(#middle-image) {
-    cursor: default;
-  }
