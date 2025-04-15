@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import teaImage from '../assets/imgs/tea.webp';
 import gteaImage from '../assets/imgs/gtea.webp';
@@ -6,17 +6,34 @@ import ParticleBackground from '../ParticleBackground';
 
 function Home() {
   const [imageState, setImageState] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if the device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Prevent right-click context menu
   const handleContextMenu = (e) => {
     e.preventDefault();
   };
   
-  // For debugging
-  console.log("Current imageState:", imageState);
-  console.log("teaImage path:", teaImage);
-  console.log("gteaImage path:", gteaImage);
-  
+  // Handle image click/tap
+  const handleImageClick = () => {
+    setImageState(prev => prev === 0 ? 1 : 0);
+  };
+
   return (
     <div
       className="background"
@@ -37,20 +54,25 @@ function Home() {
         className="social-icons"
         style={{ pointerEvents: 'auto' }} // Allow clicking links
       >
-        <a href="https://github.com/NujabesDev" target="_blank" rel="noopener noreferrer">
+        <a 
+          href="https://github.com/NujabesDev" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="GitHub Profile"
+        >
           <h2>GitHub</h2>
         </a>
         <h2 className="no-copy">•</h2>
-        <Link to="/newsletter">
+        <Link to="/newsletter" aria-label="NASA Newsletter">
           <h2>NASA Newsletter</h2>
         </Link>
         <h2 className="no-copy">•</h2>
-        <Link to="/contact">
+        <Link to="/contact" aria-label="Contact Page">
           <h2>Contact Me</h2>
         </Link>
       </div>
       
-      {/* Clickable Image */}
+      {/* Clickable Image - Now with accessibility and touch support */}
       <div
         className="main-text"
         style={{ pointerEvents: 'auto' }} // Allow image interaction
@@ -58,9 +80,22 @@ function Home() {
         <img
           src={imageState === 0 ? gteaImage : teaImage}
           id="middle-image"
-          alt="Tea"
-          onClick={() => setImageState(prev => prev === 0 ? 1 : 0)}
-          style={{ border: '1px solid transparent' }} // Add border to check if image area is visible
+          alt={imageState === 0 ? "Green Tea (Click to change)" : "Tea (Click to change)"}
+          onClick={handleImageClick}
+          onTouchEnd={handleImageClick}
+          role="button"
+          tabIndex="0"
+          aria-label="Toggle between green tea and regular tea"
+          style={{ 
+            border: '1px solid transparent',
+            touchAction: 'manipulation' // Better touch handling
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleImageClick();
+              e.preventDefault();
+            }
+          }}
         />
       </div>
     </div>

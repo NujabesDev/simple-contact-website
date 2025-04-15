@@ -14,12 +14,20 @@ function Contact() {
         </p>
         
         <div className="contact-email">
-          <a href="mailto:me@mattheww.org">me@mattheww.org</a>
+          <a 
+            href="mailto:me@mattheww.org"
+            aria-label="Email Me"
+          >
+            me@mattheww.org
+          </a>
         </div>
       </div>
       
       <div className="social-icons">
-        <Link to="/">
+        <Link 
+          to="/"
+          aria-label="Back to Home Page"
+        >
           <h2>Back to Home</h2>
         </Link>
       </div>

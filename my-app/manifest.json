@@ -1,0 +1,25 @@
+{
+    "short_name": "Matthew W",
+    "name": "Matthew Witkowski",
+    "icons": [
+      {
+        "src": "gtea.webp",
+        "sizes": "64x64 32x32 24x24 16x16",
+        "type": "image/webp"
+      },
+      {
+        "src": "gtea192.webp",
+        "type": "image/webp",
+        "sizes": "192x192"
+      },
+      {
+        "src": "gtea512.webp",
+        "type": "image/webp",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#131313",
+    "background_color": "#131313"
+  }

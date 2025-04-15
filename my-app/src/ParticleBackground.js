@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
 import useMeasure from 'react-use-measure';
 
@@ -8,6 +8,23 @@ const ParticleBackground = ({ imageState }) => {
   const engineRef = useRef(null);
   const mouseRef = useRef(null);
   const attractorRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if the device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Configuration
   const CONFIG = {
@@ -19,9 +36,9 @@ const ParticleBackground = ({ imageState }) => {
       highlight: '#a8b4bc',  // Light blue-gray
     },
     particles: {
-      count: 300,             // Number of particles
-      minSize: 2,            // Minimum particle size
-      maxSize: 10,            // Maximum particle size
+      count: isMobile ? 150 : 300,  // Reduce particle count on mobile
+      minSize: 2,
+      maxSize: 10,
       opacity: 0.5,          // Base opacity
     },
     physics: {
@@ -236,6 +253,25 @@ const ParticleBackground = ({ imageState }) => {
       });
     });
 
+    // Add touch event handling for mobile
+    const canvas = render.canvas;
+    
+    const handleTouchMove = (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        
+        mouse.position.x = x;
+        mouse.position.y = y;
+        
+        Body.setPosition(attractor, { x, y });
+      }
+    };
+    
+    canvas.addEventListener('touchmove', handleTouchMove);
+
     // Start the engine and renderer
     const runner = Runner.create();
     Runner.run(runner, engine);
@@ -262,12 +298,13 @@ const ParticleBackground = ({ imageState }) => {
       Runner.stop(runner);
       Engine.clear(engine);
       World.clear(engine.world, false);
+      canvas.removeEventListener('touchmove', handleTouchMove);
       
       if (sceneRef.current && sceneRef.current.firstChild) {
         sceneRef.current.removeChild(sceneRef.current.firstChild);
       }
     };
-  }, [bounds, imageState]);
+  }, [bounds, imageState, isMobile]);
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0 }}>

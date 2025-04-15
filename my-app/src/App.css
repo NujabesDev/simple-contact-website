@@ -12,6 +12,7 @@ body, html {
     height: 100%;
     font-family: 'Brevis-Regular';
     color: #c8c8c8;
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
 }
 
 .background {
@@ -38,11 +39,14 @@ body, html {
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .social-icons h2 {
     margin: 0;
+    font-size: 1.7rem; /* Default size */
 }
+
 #linkedin {
     width: 3.5rem;
 }
@@ -110,6 +114,9 @@ body, html {
     align-items: center;
     justify-content: center;
     margin-top: 2rem;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .contact-email {
@@ -118,6 +125,7 @@ body, html {
     text-align: center;
     margin: 2rem 0;
     letter-spacing: 0.05em;
+    word-break: break-word; /* Prevent email overflow on small screens */
 }
 
 .contact-email a {
@@ -135,6 +143,7 @@ body, html {
     text-align: center;
     margin-bottom: 2rem;
     line-height: 1.5;
+    padding: 0 1rem;
 }
 
 .newsletter-image {
@@ -154,6 +163,8 @@ body, html {
     margin-top: 1rem;
     width: 100%;
     max-width: 650px;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .form-description {
@@ -221,6 +232,7 @@ body, html {
     font-family: 'Brevis-Regular', sans-serif;
 }
 
+/* Enhanced mobile responsiveness */
 @media (max-width: 600px) {
     .main-text h1 {
         font-size: 2.5rem;
@@ -231,7 +243,78 @@ body, html {
     }
     
     .newsletter-image {
-        width: 30%;
+        width: 50%;
+    }
+    
+    .social-icons {
+        gap: 1rem;
+    }
+    
+    .social-icons h2 {
+        font-size: 1.3rem;
+    }
+    
+    .contact-email {
+        font-size: 1.4rem;
+    }
+    
+    .form-description {
+        font-size: 1.1rem;
+    }
+    
+    #middle-image {
+        width: 12rem;
+    }
+}
+
+/* Smaller phones */
+@media (max-width: 375px) {
+    .main-text h1 {
+        font-size: 2rem;
+    }
+    
+    .social-icons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .social-icons .no-copy {
+        display: none; /* Hide dots on very small screens */
+    }
+    
+    #middle-image {
+        width: 10rem;
+    }
+    
+    .form-description {
+        font-size: 1rem;
+    }
+}
+
+/* Landscape mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .background {
+        padding: 1rem 0.5rem;
+    }
+    
+    .main-text h1 {
+        font-size: 2rem;
+        margin-top: 0.5rem;
+    }
+    
+    #middle-image {
+        width: 8rem;
+        margin-top: 0.5rem;
+    }
+    
+    .social-icons {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .newsletter-image {
+        width: 15%;
+        margin: 0.5rem auto;
     }
 }
 
@@ -270,4 +353,16 @@ body, html {
     pointer-events: auto;
   }
   
+  /* Touch optimizations */
+  button, input[type="submit"], a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px; /* Minimum touch target size */
+  }
   
+  /* Fix for iOS 100vh issue */
+  @supports (-webkit-touch-callout: none) {
+    .background {
+      min-height: -webkit-fill-available;
+    }
+  }
