@@ -12,7 +12,8 @@ body, html {
     height: 100%;
     font-family: 'Brevis-Regular';
     color: #c8c8c8;
-    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background-color: #131313; /* Match the background color */
 }
 
 .background {
@@ -22,10 +23,12 @@ body, html {
     justify-content: center;
     background-color: #131313;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100vh; /* This ensures full viewport height */
     text-align: center;
     padding: 2rem 1rem;
     box-sizing: border-box;
+    overflow: hidden; /* Prevent overflow */
+    margin: 0; /* Remove any margin */
 }
 
 .social-icons {
@@ -39,14 +42,11 @@ body, html {
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .social-icons h2 {
     margin: 0;
-    font-size: 1.7rem; /* Default size */
 }
-
 #linkedin {
     width: 3.5rem;
 }
@@ -114,9 +114,6 @@ body, html {
     align-items: center;
     justify-content: center;
     margin-top: 2rem;
-    width: 100%;
-    padding: 0 1rem;
-    box-sizing: border-box;
 }
 
 .contact-email {
@@ -125,7 +122,6 @@ body, html {
     text-align: center;
     margin: 2rem 0;
     letter-spacing: 0.05em;
-    word-break: break-word; /* Prevent email overflow on small screens */
 }
 
 .contact-email a {
@@ -143,7 +139,6 @@ body, html {
     text-align: center;
     margin-bottom: 2rem;
     line-height: 1.5;
-    padding: 0 1rem;
 }
 
 .newsletter-image {
@@ -163,8 +158,6 @@ body, html {
     margin-top: 1rem;
     width: 100%;
     max-width: 650px;
-    padding: 0 1rem;
-    box-sizing: border-box;
 }
 
 .form-description {
@@ -193,6 +186,7 @@ body, html {
     color: #c8c8c8;
     font-family: 'Brevis-Regular', sans-serif;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .form-description a {
@@ -232,89 +226,45 @@ body, html {
     font-family: 'Brevis-Regular', sans-serif;
 }
 
-/* Enhanced mobile responsiveness */
 @media (max-width: 600px) {
     .main-text h1 {
         font-size: 2.5rem;
+        line-height: 1.2;
     }
 
     .main-text h2 {
         font-size: 1.2rem;
+        line-height: 1.3;
     }
     
     .newsletter-image {
-        width: 50%;
+        width: 80% !important;
+        max-width: 80% !important;
+        margin: 1.5rem auto;
     }
     
+    /* Fix form on mobile */
+    .newsletter-form,
+    #mc_embed_signup {
+        width: 90% !important;
+        max-width: 90% !important;
+    }
+
+    #mc_embed_signup .mc-field-group input {
+        width: 100% !important;
+        box-sizing: border-box;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-description {
+        width: 90%;
+        font-size: 1.2rem;
+    }
+    
+    /* Fix any potential overflow issues */
     .social-icons {
+        flex-wrap: wrap;
         gap: 1rem;
-    }
-    
-    .social-icons h2 {
-        font-size: 1.3rem;
-    }
-    
-    .contact-email {
-        font-size: 1.4rem;
-    }
-    
-    .form-description {
-        font-size: 1.1rem;
-    }
-    
-    #middle-image {
-        width: 12rem;
-    }
-}
-
-/* Smaller phones */
-@media (max-width: 375px) {
-    .main-text h1 {
-        font-size: 2rem;
-    }
-    
-    .social-icons {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-    
-    .social-icons .no-copy {
-        display: none; /* Hide dots on very small screens */
-    }
-    
-    #middle-image {
-        width: 10rem;
-    }
-    
-    .form-description {
-        font-size: 1rem;
-    }
-}
-
-/* Landscape mode */
-@media (max-height: 500px) and (orientation: landscape) {
-    .background {
-        padding: 1rem 0.5rem;
-    }
-    
-    .main-text h1 {
-        font-size: 2rem;
-        margin-top: 0.5rem;
-    }
-    
-    #middle-image {
-        width: 8rem;
-        margin-top: 0.5rem;
-    }
-    
-    .social-icons {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .newsletter-image {
-        width: 15%;
-        margin: 0.5rem auto;
     }
 }
 
@@ -324,45 +274,36 @@ body, html {
     -moz-user-select: none;     /* Firefox */
     -ms-user-select: none;      /* IE10+/Edge */
     pointer-events: none;       /* Optional - prevents any interaction */
-  }
+}
 
 /* Ensure content stays above the animation */
 .background {
     position: relative;
     z-index: 1;
-  }
+}
   
-  /* Make links clickable */
-  .social-icons, .main-text, .contact-container {
+/* Make links clickable */
+.social-icons, .main-text, .contact-container {
     position: relative;
     z-index: 2;
     pointer-events: auto;
-  }
+}
   
-  /* Make images clickable */
-  #middle-image {
+/* Make images clickable */
+#middle-image {
     position: relative;
     z-index: 2;
     pointer-events: auto;
-  }
+}
 
-  /* Ensure forms are clickable */
-  .newsletter-form, #mc_embed_signup {
+/* Ensure forms are clickable */
+.newsletter-form, #mc_embed_signup {
     position: relative;
     z-index: 2;
     pointer-events: auto;
-  }
-  
-  /* Touch optimizations */
-  button, input[type="submit"], a {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    min-height: 44px; /* Minimum touch target size */
-  }
-  
-  /* Fix for iOS 100vh issue */
-  @supports (-webkit-touch-callout: none) {
-    .background {
-      min-height: -webkit-fill-available;
-    }
-  }
+}
+
+/* Ensure the particle background doesn't cause overflow */
+div[ref="containerRef"] {
+    overflow: hidden;
+}
