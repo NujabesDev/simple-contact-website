@@ -35,13 +35,15 @@ function Newsletter() {
 
       {/* Larger newsletter image for better mobile visibility */}
       <img src={newsletterImage} alt="snippet of newsletter" className="newsletter-image" />
+      <p className= "image-description">Example of Newsletter</p>
 
       <div className="newsletter-form">
         <p className="form-description">
-          Sign up to receive daily emails for a stunning picture from NASA's collection. 
-          Pictures are randomly selected from the archive of <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" rel="noopener noreferrer"> Astronomy Picture of the Day
-          </a>.
-        </p>
+        Do you live in a big city? Does the smog of our industrialization block out the stars for you? 
+        Have you forgotten the beauty of our galaxy? 
+        Sign up for this newsletter to get a different photograph of our universe, with a brief explanation written by a professional astronomer.
+        Each photo is randomly chosen through the archive, so even those who actively check the <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" rel="noopener noreferrer">APOD</a> daily will still find this useful!  
+        All copyright is respected.</p>
         
         <div id="mc_embed_signup">
           <form 

@@ -11,9 +11,11 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Brevis-Regular';
+    word-spacing: 0.1em;
     color: #c8c8c8;
     overflow-x: hidden; /* Prevent horizontal scrolling */
     background-color: #131313; /* Match the background color */
+    
 }
 
 .background {
@@ -142,10 +144,10 @@ body, html {
 }
 
 .newsletter-image {
-    margin: 1rem auto;
-    width: 25%;
+    /* margin: 1rem auto; */
+    width: 40%;
     height: auto;
-    max-width: 30rem;
+    /* max-width: 50rem; */
     opacity: 1; 
     position: relative; 
     z-index: 2; 
@@ -158,6 +160,7 @@ body, html {
     margin-top: 1rem;
     width: 100%;
     max-width: 650px;
+
 }
 
 .form-description {
@@ -165,7 +168,8 @@ body, html {
     max-width: 650px;
     line-height: 1.5;
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
+    margin-top:-1rem
 }
 
 #mc_embed_signup {
@@ -188,6 +192,7 @@ body, html {
     font-size: 1rem;
     box-sizing: border-box;
 }
+
 
 .form-description a {
     text-decoration: none;
