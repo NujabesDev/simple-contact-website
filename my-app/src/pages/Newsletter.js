@@ -47,7 +47,7 @@ function Newsletter() {
         
         <div id="mc_embed_signup">
           <form 
-            action="https://mattheww.us13.list-manage.com/subscribe/post?u=9911ecda9191c30d933073fa2&amp;id=383d9bb83d&amp;f_id=00be48e1f0" 
+            action={process.env.MAILCHIMP_FORM_URL} 
             method="post" 
             id="mc-embedded-subscribe-form" 
             name="mc-embedded-subscribe-form" 
