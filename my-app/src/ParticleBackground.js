@@ -8,7 +8,7 @@ const ParticleBackground = ({ imageState }) => {
   const engineRef = useRef(null);
   const mouseRef = useRef(null);
   const attractorRef = useRef(null);
-  
+
   // Configuration
   const CONFIG = {
     colors: {
@@ -19,7 +19,7 @@ const ParticleBackground = ({ imageState }) => {
       highlight: '#a8b4bc',
     },
     particles: {
-      count: 350,  // base count for reference 1920x1080 resolution
+      count: 300,
       minSize: 2,
       maxSize: 10,
       opacity: 0.5,
@@ -39,23 +39,22 @@ const ParticleBackground = ({ imageState }) => {
     if (!bounds.width || !bounds.height) return;
 
     const { Engine, Render, Runner, Bodies, Body, World, Mouse, Events } = Matter;
-
-    // Create engine and renderer
     const engine = Engine.create({ gravity: { x: 0, y: 0 } });
     engineRef.current = engine;
+
     const render = Render.create({
       element: sceneRef.current,
-      engine: engine,
+      engine,
       options: {
         width: bounds.width,
         height: bounds.height,
         wireframes: false,
         background: 'transparent',
         pixelRatio: window.devicePixelRatio,
-      }
+      },
     });
 
-    // Mouse attractor (invisible body following the pointer)
+    // Mouse attractor
     const mouse = Mouse.create(render.canvas);
     mouseRef.current = mouse;
     const attractor = Bodies.circle(0, 0, 20, { isStatic: false, render: { visible: false } });
@@ -72,29 +71,36 @@ const ParticleBackground = ({ imageState }) => {
     ];
     World.add(engine.world, walls);
 
-    // Compute dynamic particle count (density constant)
+    // ---- ADD NAME ELEMENT AS COLLISION WALL ----
+    const nameEl = document.getElementById('myName');
+    if (nameEl) {
+      const { left, top, width: w, height: h } = nameEl.getBoundingClientRect();
+      const x = left + w / 2;
+      const y = top + h / 2;
+      const nameWall = Bodies.rectangle(x, y, w, h, {
+        isStatic: true,
+        render: { visible: false },
+      });
+      World.add(engine.world, nameWall);
+    }
+
+    // Dynamic particle count based on area
     const baseCount = CONFIG.particles.count;
     const baseArea = 1920 * 1080;
     let particleCount = Math.round(baseCount * (bounds.width * bounds.height) / baseArea);
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      particleCount = Math.round(particleCount * 0.6);
-    }
+    if (isMobile) particleCount = Math.round(particleCount * 0.6);
     particleCount = Math.max(particleCount, 50);
 
-    // Helpers for random attributes
-    const randomPosition = () => ({
-      x: Math.random() * bounds.width,
-      y: Math.random() * bounds.height
-    });
-    const randomSize = () => 
-      CONFIG.particles.minSize + Math.random() * (CONFIG.particles.maxSize - CONFIG.particles.minSize);
+    // Helpers
+    const randomPosition = () => ({ x: Math.random() * bounds.width, y: Math.random() * bounds.height });
+    const randomSize = () => CONFIG.particles.minSize + Math.random() * (CONFIG.particles.maxSize - CONFIG.particles.minSize);
     const colors = [
       CONFIG.colors.primary,
       CONFIG.colors.secondary,
       CONFIG.colors.neutral,
       CONFIG.colors.neutral2,
-      CONFIG.colors.highlight
+      CONFIG.colors.highlight,
     ];
 
     // Create particles
@@ -107,89 +113,79 @@ const ParticleBackground = ({ imageState }) => {
         restitution: CONFIG.physics.restitution,
         frictionAir: CONFIG.physics.frictionAir + Math.random() * 0.02,
         render: { fillStyle: color, opacity: CONFIG.particles.opacity },
-        isParticle: true
+        isParticle: true,
       });
-      // small initial velocity
-      Body.setVelocity(particle, {
-        x: (Math.random() - 0.5) * 0.5,
-        y: (Math.random() - 0.5) * 0.5
-      });
+      Body.setVelocity(particle, { x: (Math.random() - 0.5) * 0.5, y: (Math.random() - 0.5) * 0.5 });
       particles.push(particle);
     }
     World.add(engine.world, particles);
 
-    // Spatial grid for connections
+    // Spatial grid
     let grid = {};
     const cellSize = CONFIG.physics.connectionDistance;
     const updateGrid = () => {
       grid = {};
       particles.forEach(p => {
-        const cellX = Math.floor(p.position.x / cellSize);
-        const cellY = Math.floor(p.position.y / cellSize);
-        const key = `${cellX},${cellY}`;
+        const cx = Math.floor(p.position.x / cellSize);
+        const cy = Math.floor(p.position.y / cellSize);
+        const key = `${cx},${cy}`;
         if (!grid[key]) grid[key] = [];
         grid[key].push(p);
       });
     };
 
-    // After each render: apply mouse forces and draw connections
+    // Rendering & physics events
     Events.on(render, 'afterRender', () => {
-      if (!mouseRef.current) return;
-
       // Update attractor position
       Body.setPosition(attractor, { x: mouse.position.x, y: mouse.position.y });
 
-      // Apply attraction/repulsion forces
-      const infRadius = CONFIG.physics.influenceRadius;
-      const infRadiusSq = infRadius * infRadius;
-      particles.forEach(particle => {
-        const px = particle.position.x, py = particle.position.y;
-        const dx = mouse.position.x - px;
-        const dy = mouse.position.y - py;
-        const distSq = dx*dx + dy*dy;
-        if (distSq > 0 && distSq < infRadiusSq) {
-          const dist = Math.sqrt(distSq);
+      // Apply forces
+      const infR = CONFIG.physics.influenceRadius;
+      const infRSq = infR * infR;
+      particles.forEach(p => {
+        const dx = mouse.position.x - p.position.x;
+        const dy = mouse.position.y - p.position.y;
+        const dsq = dx*dx + dy*dy;
+        if (dsq > 0 && dsq < infRSq) {
+          const dist = Math.sqrt(dsq);
           const nx = dx / dist, ny = dy / dist;
-          const strength = mouse.button === 0 
-            ? CONFIG.physics.attractionStrength 
+          const strength = mouse.button === 0
+            ? CONFIG.physics.attractionStrength
             : -CONFIG.physics.repulsionStrength;
-          const force = strength * (1 - dist / infRadius);
-          Body.applyForce(particle, particle.position, { x: nx * force, y: ny * force });
+          const force = strength * (1 - dist / infR);
+          Body.applyForce(p, p.position, { x: nx * force, y: ny * force });
         }
       });
 
-      // Update spatial grid for connections
+      // Update grid & draw connections
       updateGrid();
-
-      // Draw lines between nearby particles
       const ctx = render.context;
       ctx.lineWidth = 1;
-      const connectDist = CONFIG.physics.connectionDistance;
-      const connectDistSq = connectDist * connectDist;
-      particles.forEach(particleA => {
-        const ax = particleA.position.x, ay = particleA.position.y;
+      const cDist = CONFIG.physics.connectionDistance;
+      const cDistSq = cDist * cDist;
+      particles.forEach(a => {
+        const ax = a.position.x, ay = a.position.y;
         const cellX = Math.floor(ax / cellSize);
         const cellY = Math.floor(ay / cellSize);
-        // check neighbors in adjacent cells
         for (let dx = -1; dx <= 1; dx++) {
           for (let dy = -1; dy <= 1; dy++) {
             const key = `${cellX+dx},${cellY+dy}`;
-            const cellParticles = grid[key];
-            if (!cellParticles) continue;
-            cellParticles.forEach(particleB => {
-              if (particleA.id >= particleB.id) return; // avoid duplicate pairs
-              const bx = particleB.position.x, by = particleB.position.y;
-              const dx2 = ax - bx, dy2 = ay - by;
-              const distSq = dx2*dx2 + dy2*dy2;
-              if (distSq < connectDistSq) {
-                const dist = Math.sqrt(distSq);
-                const opacity = (1 - dist / connectDist) * CONFIG.physics.connectionOpacity;
+            const bucket = grid[key];
+            if (!bucket) continue;
+            bucket.forEach(b => {
+              if (a.id >= b.id) return;
+              const dx2 = ax - b.position.x;
+              const dy2 = ay - b.position.y;
+              const dsq2 = dx2*dx2 + dy2*dy2;
+              if (dsq2 < cDistSq) {
+                const dist = Math.sqrt(dsq2);
+                const op = (1 - dist / cDist) * CONFIG.physics.connectionOpacity;
                 ctx.strokeStyle = imageState === 0
-                  ? `rgba(99,133,79,${opacity})`
-                  : `rgba(135,46,27,${opacity})`;
+                  ? `rgba(99,133,79,${op})`
+                  : `rgba(135,46,27,${op})`;
                 ctx.beginPath();
                 ctx.moveTo(ax, ay);
-                ctx.lineTo(bx, by);
+                ctx.lineTo(b.position.x, b.position.y);
                 ctx.stroke();
               }
             });
@@ -198,46 +194,35 @@ const ParticleBackground = ({ imageState }) => {
       });
     });
 
-    // Start engine
-    const runner = Runner.create();
-    Runner.run(runner, engine);
+    // Run engine & renderer
+    const runner = Runner.create(); Runner.run(runner, engine);
     Render.run(render);
 
-    // Periodic random impulse for variation
-    const randomImpulse = setInterval(() => {
+    // Random impulses
+    const interval = setInterval(() => {
       particles.forEach(p => {
         if (Math.random() < 0.1) {
-          Body.applyForce(p, p.position, { 
-            x: (Math.random() - 0.5) * 0.0005, 
-            y: (Math.random() - 0.5) * 0.0005 
-          });
+          Body.applyForce(p, p.position, { x: (Math.random() - 0.5) * 0.0005, y: (Math.random() - 0.5) * 0.0005 });
         }
       });
     }, 3000);
 
-    // Cleanup on unmount or resize
+    // Cleanup
     return () => {
-      clearInterval(randomImpulse);
+      clearInterval(interval);
       Events.off(render);
       Render.stop(render);
       Runner.stop(runner);
-      Engine.clear(engine);
+      engine.events = {};
       World.clear(engine.world, false);
-      if (sceneRef.current && sceneRef.current.firstChild) {
-        sceneRef.current.removeChild(sceneRef.current.firstChild);
-      }
+      Engine.clear(engine);
+      if (sceneRef.current.firstChild) sceneRef.current.removeChild(sceneRef.current.firstChild);
     };
   }, [bounds, imageState]);
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100vh', position: 'fixed', top: 0, left: 0 }}>
-      <div ref={sceneRef} style={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        pointerEvents: 'auto'
-      }} />
+      <div ref={sceneRef} style={{ position: 'absolute', width: '100%', height: '100%', zIndex: -1, pointerEvents: 'auto' }}/>
     </div>
   );
 };
