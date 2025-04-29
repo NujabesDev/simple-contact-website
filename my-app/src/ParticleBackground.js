@@ -19,7 +19,7 @@ const ParticleBackground = ({ imageState }) => {
       highlight: '#a8b4bc',
     },
     particles: {
-      count: 300,  // base count for reference 1920x1080 resolution
+      count: 350,  // base count for reference 1920x1080 resolution
       minSize: 2,
       maxSize: 10,
       opacity: 0.5,
