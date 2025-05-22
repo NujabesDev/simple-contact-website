@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import newsletterImage from '../assets/imgs/newsletterImage.png';
+import newsletterImage from '../assets/imgs/newsletterImage.svg';
 
 function Newsletter() {
   React.useEffect(() => {
